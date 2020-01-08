@@ -1,6 +1,6 @@
 class ShowsController < ApplicationController
     def show
-        show = Show.find(params[:id])
+        show = Show.find_by(id: params[:id])
         if show 
             render json: show
         else
