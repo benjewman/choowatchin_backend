@@ -1,6 +1,10 @@
 class ShowsController < ApplicationController
     def show
         show = Show.find(params[:id])
-        render json: show
+        if show 
+            render json: show
+        else
+            render json: { error: 'show not found' }
+        end
     end
 end
