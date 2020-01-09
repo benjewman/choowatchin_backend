@@ -8,14 +8,10 @@ class UsersController < ApplicationController
     def create
         user = User.new(user_params)
         if user.save
-            puts '------------------------------------------'
-            puts user
-            render json: user
+            token = JWT.encode({user_id: user.id}, 'chookey', 'HS256')
+            render json: { user: user, token: token }
         else
-            byebug
-            puts '---------------------------------------'
-            puts 'NOPE'
-            render json: {error: 'whoopsie'}
+            render json: {error: 'unable to create user'}
         end
     end 
 
