@@ -6,4 +6,5 @@ class User < ApplicationRecord
     has_many :followers, through: :following_users
     has_many :reviews
     has_many :shows, through: :reviews
+    accepts_nested_attributes_for :reviews
 end

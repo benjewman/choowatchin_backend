@@ -16,8 +16,14 @@ class UsersController < ApplicationController
     end 
 
     def show
-
+        user = User.find_by(id: params[:id])
+        leaders = user.leaders
+        followed_reviews = leaders.map{ |leader| leader.reviews }
+        if user 
+            render json: user
+        end
     end
+    
 
     private
     def user_params

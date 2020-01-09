@@ -16,9 +16,5 @@ end
 end
 
 5.times do
-    User.create(username: Faker::Beer.brand, full_name: Faker::Beer.name, email: Faker::Kpop.boy_bands)
-end
-
-5.times do
     Review.create(stamp: 'Noice', user_id: 1 + rand(5), show_id: 1 + rand(10), content: Faker::Lorem.sentence(word_count: 5))
 end
