@@ -32,8 +32,13 @@ class UsersController < ApplicationController
 
     def topfive
         users = User.all
-        sorted_users = users.sort_by { |user| user.leaders.size }
-        render json: { sorted_users: sorted_users }
+        backwards_sorted = users.sort_by { |user| user.followers.size }
+        sorted_users = backwards_sorted.reverse()
+        top_five = sorted_users[0..4]
+        # puts ---------------------------------------------
+        # puts sorted_users
+        # sorted_with_followers = sorted_users.map { |user| user['followers'] = user.followers }
+        render json: { top_five: top_five }
     end
 
     
