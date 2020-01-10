@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   post '/auth', to: 'auth#create'
   get '/current_user', to: 'auth#show'
   root 'welcome#index'
+  get '/friends/:id', to: 'friends#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

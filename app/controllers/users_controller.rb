@@ -15,16 +15,19 @@ class UsersController < ApplicationController
         end
     end 
 
+
     def show
         user = User.find_by(id: params[:id])
+        # reviews = user.reviews
         leaders = user.leaders
         followed_reviews = leaders.map{ |leader| leader.reviews }
         if user 
-            render json: user
+            # Refactor below JSON
+            render json: { user: user, leaders: user.leaders, followed_reviews: followed_reviews, reviews: user.reviews}
         end
     end
-    
 
+    
     private
     def user_params
         params.require(:user).permit(:username, :email, :full_name, :password)
