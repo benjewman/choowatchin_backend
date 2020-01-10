@@ -15,10 +15,12 @@ class AuthController < ApplicationController
         user = User.find(user_id)
         if user 
             leaders = user.leaders
-            flattened_reviews = []
-            followed_reviews = leaders.map{ |leader| leader.reviews }
-            followed_reviews.each { |array| flattened_reviews.concat(array) }
-            render json: { user: user, followed_reviews: flattened_reviews }
+            leader_reviews = Review.all.where(user_id: leaders)
+            ordered_leader_reviews = leader_reviews.order({ created_at: :desc})
+            # flattened_reviews = []
+            # followed_reviews = leaders.map{ |leader| leader.reviews }
+            # followed_reviews.each { |array| flattened_reviews.concat(array) }
+            render json: { user: user, followed_reviews: ordered_leader_reviews }
         else
             render json: { error: 'not signed in' }, status: 401
         end

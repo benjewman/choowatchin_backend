@@ -30,6 +30,12 @@ class UsersController < ApplicationController
         end
     end
 
+    def topfive
+        users = User.all
+        sorted_users = users.sort_by { |user| user.leaders.size }
+        render json: { sorted_users: sorted_users }
+    end
+
     
     private
     def user_params
