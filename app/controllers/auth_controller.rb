@@ -14,7 +14,11 @@ class AuthController < ApplicationController
         user_id = JWT.decode(token, 'chookey', true, { algorithm: 'HS256' })[0]['user_id']
         user = User.find(user_id)
         if user 
-            render json: { user: user }
+            leaders = user.leaders
+            flattened_reviews = []
+            followed_reviews = leaders.map{ |leader| leader.reviews }
+            followed_reviews.each { |array| flattened_reviews.concat(array) }
+            render json: { user: user, followed_reviews: flattened_reviews }
         else
             render json: { error: 'not signed in' }, status: 401
         end
