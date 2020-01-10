@@ -18,14 +18,15 @@ class UsersController < ApplicationController
 
     def show
         user = User.find_by(id: params[:id])
-        # reviews = user.reviews
         leaders = user.leaders
-        followed_reviews = leaders.map{ |leader| leader.reviews }
-        # ordered_followed_reviews = followed_reviews.sort { |a, b| b.created_at <=> a.created_at }
-        # ordered_reviews = user.reviews.sort('created_at desc')
+        
+        leader_reviews = Review.all.where(user_id: leaders)
+        ordered_leader_reviews = leader_reviews.order({ created_at: :desc})
+        p '=============='
+
         if user 
             # Refactor below JSON
-            render json: { user: user, leaders: user.leaders, followed_reviews: followed_reviews, reviews: user.reviews}
+            render json: { user: user, leaders: user.leaders, leader_reviews: ordered_leader_reviews, user_reviews: user.reviews}
         end
     end
 
