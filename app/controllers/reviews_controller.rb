@@ -7,17 +7,31 @@ class ReviewsController < ApplicationController
     end
 
     def create
+        # render json: {show: params[:show], id: params[:show]['id']}
+        
         review = Review.new(review_params)
-        show = Show.find_by(imdbID: params[:show]['id'])
+        show = Show.find_by(showId: params[:show]['id'])
         if show
             review.show = show
+            review.save
+            render json: {review: review, show: show}
         else
-            new_show = Show.create
+            new_show = Show.create(showId: params[:show]['id'], medium: params[:medium], poster: params[:show]['poster_path'])
+            if (new_show.medium === 'movies') 
+                new_show.title = params[:show]['title']
+                new_show.save
+            else 
+                new_show.title = params[:show]['name']
+                new_show.save
+            end
+            review.show = new_show
+            review.save
+            render json: {review: review, show: new_show}
         end
     end
 
     private
     def review_params
-        params.require(:review).pertit(:stamp, :content, :medium, :user_id)
+        params.require(:review).permit(:stamp, :content, :user_id)
     end
 end
