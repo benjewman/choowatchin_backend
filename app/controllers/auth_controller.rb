@@ -12,7 +12,7 @@ class AuthController < ApplicationController
     def show
         token = request.headers['Authorization'].split(' ')[1]
         user_id = JWT.decode(token, 'chookey', true, { algorithm: 'HS256' })[0]['user_id']
-        user = User.find(user_id)
+        user = User.find_by(id: user_id)
         if user 
             leaders = user.leaders
             leader_reviews = Review.all.where(user_id: leaders)

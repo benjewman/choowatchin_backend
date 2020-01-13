@@ -4,13 +4,20 @@ class ReviewsController < ApplicationController
         show = review.show
         user = review.user
         render json: {review: review, show: show, user: user}
-        # if review 
-        #     fetch("http://www.omdbapi.com/?apikey=49f89f6c&i=#{review.show.imdbID}")
-        #     .then(resp => resp.json())
-        #     # BREAKING ON NEXT LINE
-        #     .then(show => return render json: {review: review, show: show, user: review.user})
-        # else
-        #     render json: { error: 'review not found' }
-        # end
+    end
+
+    def create
+        review = Review.new(review_params)
+        show = Show.find_by(imdbID: params[:show]['id'])
+        if show
+            review.show = show
+        else
+            new_show = Show.create
+        end
+    end
+
+    private
+    def review_params
+        params.require(:review).pertit(:stamp, :content, :medium, :user_id)
     end
 end
