@@ -19,6 +19,8 @@ class UsersController < ApplicationController
     def show
         user = User.find_by(id: params[:id])
         leaders = user.leaders
+        backwards_sorted = leaders.sort_by { |leader| leader.followers.size}
+        sorted_leaders = backwards_sorted.reverse
         
         leader_reviews = Review.all.where(user_id: leaders)
         ordered_leader_reviews = leader_reviews.order({ created_at: :desc})
@@ -26,7 +28,11 @@ class UsersController < ApplicationController
 
         if user 
             # Refactor below JSON
-            render json: { user: user, leaders: user.leaders, leader_reviews: ordered_leader_reviews, user_reviews: user.reviews}
+            render json: { user: user, leaders: sorted_leaders, leader_reviews: ordered_leader_reviews, user_reviews: user.reviews}
+            # below might work instead
+            # serializers might be working now
+
+            # render json: user
         end
     end
 
