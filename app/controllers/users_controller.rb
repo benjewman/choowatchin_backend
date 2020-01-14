@@ -48,6 +48,16 @@ class UsersController < ApplicationController
         render json: { top_five: top_five, follower_count_array: follower_count_array }
     end
 
+    def update
+        user = User.find_by(id: params[:id])
+        if user
+            user.update(user_params)
+            user.save
+            render json: user
+        else
+            render json: { error: 'did not update' }
+        end
+    end
     
     private
     def user_params
