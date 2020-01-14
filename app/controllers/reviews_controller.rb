@@ -30,6 +30,17 @@ class ReviewsController < ApplicationController
         end
     end
 
+    def update 
+        review = Review.find_by(id: params[:id])
+        if review
+            review.update(review_params)
+            review.save
+            render json: review
+        else 
+            render json: {error: 'update failed'}
+        end
+    end
+
     private
     def review_params
         params.require(:review).permit(:stamp, :content, :user_id)
