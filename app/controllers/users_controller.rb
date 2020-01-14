@@ -23,12 +23,15 @@ class UsersController < ApplicationController
         sorted_leaders = backwards_sorted.reverse
         
         leader_reviews = Review.all.where(user_id: leaders)
-        ordered_leader_reviews = leader_reviews.order({ created_at: :desc})
+        ordered_leader_reviews = leader_reviews.order({ created_at: :desc })
+        ordered_user_reviews = user.reviews.order({ created_at: :desc })
         p '=============='
 
         if user 
             # Refactor below JSON
-            render json: { user: user, leaders: sorted_leaders, leader_reviews: ordered_leader_reviews, user_reviews: user.reviews}
+
+            render json: { user: user, leaders: sorted_leaders, leader_reviews: ordered_leader_reviews, user_reviews: ordered_user_reviews }
+
             # below might work instead
             # serializers might be working now
 
