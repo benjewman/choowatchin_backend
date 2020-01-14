@@ -41,6 +41,16 @@ class ReviewsController < ApplicationController
         end
     end
 
+    def destroy
+        review = Review.find_by(id: params[:id])
+        if review 
+            review.destroy
+            render json: { message: 'review deleted'}
+        else
+            render json: { error: 'delete failed' }
+        end
+    end
+    
     private
     def review_params
         params.require(:review).permit(:stamp, :content, :user_id)
