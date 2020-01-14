@@ -20,9 +20,12 @@ class AuthController < ApplicationController
             # flattened_reviews = []
             # followed_reviews = leaders.map{ |leader| leader.reviews }
             # followed_reviews.each { |array| flattened_reviews.concat(array) }
-            render json: { user: user, followed_reviews: ordered_leader_reviews }
+            render json: { user: user, followed_reviews: ordered_leader_reviews, leaders: leaders }
         else
             render json: { error: 'not signed in' }, status: 401
         end
     end
 end
+
+# serializer doesn't work properly in this because
+# it's using user serializer and not in the user controller

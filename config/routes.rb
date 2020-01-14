@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :shows
   resources :reviews
   resources :users
+  resources :follows
   post '/auth', to: 'auth#create'
   get '/current_user', to: 'auth#show'
   root 'welcome#index'
