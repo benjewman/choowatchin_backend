@@ -15,7 +15,8 @@ class AuthController < ApplicationController
         user = User.find_by(id: user_id)
         if user 
             leaders = user.leaders
-            leader_reviews = Review.all.where(user_id: leaders)
+            leaders_plus = leaders.push(user)
+            leader_reviews = Review.all.where(user_id: leaders_plus)
             ordered_leader_reviews = leader_reviews.order({ created_at: :desc})
             # flattened_reviews = []
             # followed_reviews = leaders.map{ |leader| leader.reviews }
