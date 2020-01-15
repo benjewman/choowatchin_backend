@@ -7,14 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-5.times do 
-    Show.create(medium: 'movie', title: Faker::Book.title, year: '1999', imdbID: 'tt8946378')
-end
+# 5.times do 
+#     Show.create(medium: 'movie', title: Faker::Book.title, year: '1999', imdbID: 'tt8946378')
+# end
 
-5.times do
-    Show.create(medium: 'series', title: Faker::Book.title, year: '1999', imdbID: 'tt8946378')
-end
+# 5.times do
+#     Show.create(medium: 'series', title: Faker::Book.title, year: '1999', imdbID: 'tt8946378')
+# end
 
-5.times do
-    Review.create(stamp: 'Noice', user_id: 1 + rand(5), show_id: 1 + rand(10), content: Faker::Lorem.sentence(word_count: 5))
-end
+# 5.times do
+#     Review.create(stamp: 'Noice', user_id: 1 + rand(5), show_id: 1 + rand(10), content: Faker::Lorem.sentence(word_count: 5))
+# end

@@ -14,8 +14,8 @@ class AuthController < ApplicationController
         user_id = JWT.decode(token, 'chookey', true, { algorithm: 'HS256' })[0]['user_id']
         user = User.find_by(id: user_id)
         if user 
-            leaders = user.leaders
-            leaders_plus = leaders.push(user)
+            leaders = user.leaders.map { |leader| leader.id }
+            leaders_plus = leaders.push(user.id)
             leader_reviews = Review.all.where(user_id: leaders_plus)
             ordered_leader_reviews = leader_reviews.order({ created_at: :desc})
             # flattened_reviews = []

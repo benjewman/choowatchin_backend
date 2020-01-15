@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     
     def create
         user = User.new(user_params)
+        user.pic = 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
         if user.save
             token = JWT.encode({user_id: user.id}, 'chookey', 'HS256')
             render json: { user: user, token: token }

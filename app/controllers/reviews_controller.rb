@@ -26,7 +26,7 @@ class ReviewsController < ApplicationController
             end
             review.show = new_show
             review.save
-            render json: {review: review, show: new_show}
+            render json: {review: review}
         end
     end
 
