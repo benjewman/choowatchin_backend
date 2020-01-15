@@ -59,6 +59,16 @@ class UsersController < ApplicationController
             render json: { error: 'did not update' }
         end
     end
+
+    def destroy
+        user = User.find_by(id: params[:id])
+        if user
+            user.destroy
+            render json: { message: 'user deleted' }
+        else
+            render json: { message: 'delete failed' }
+        end
+    end
     
     private
     def user_params
