@@ -21,7 +21,7 @@ class AuthController < ApplicationController
             # flattened_reviews = []
             # followed_reviews = leaders.map{ |leader| leader.reviews }
             # followed_reviews.each { |array| flattened_reviews.concat(array) }
-            render json: { user: user, followed_reviews: ordered_leader_reviews, leaders: leaders }
+            render json: { user: user, followed_reviews: ordered_leader_reviews, leaders: user.leaders }
         else
             render json: { error: 'not signed in' }, status: 401
         end
