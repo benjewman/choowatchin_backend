@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    validates :email, uniqueness: true
+    validates :username, uniqueness: { case_sensitive: false, message: 'username taken' }
     has_secure_password
     has_many :followed_users, foreign_key: :follower_id, class_name: 'Follow'
     has_many :leaders, through: :followed_users

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
             token = JWT.encode({user_id: user.id}, 'chookey', 'HS256')
             render json: { user: user, token: token }
         else
-            render json: {error: 'unable to create user'}
+            render json: {error: user.errors.messages}
         end
     end 
 
