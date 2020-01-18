@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_one_attached :avatar
     validates :email, uniqueness: true
     validates :username, uniqueness: { case_sensitive: false, message: 'username taken' }
     has_secure_password

@@ -51,7 +51,11 @@ class UsersController < ApplicationController
 
     def update
         user = User.find_by(id: params[:id])
-        if user
+        if user && params[:avatar]
+            # user.avatar.attach(params[:user][:avatar])
+            user.update(avatar: params[:avatar])
+            render json: { message: 'avatar included', attached: user.avatar.attached? }
+        elsif user
             user.update(user_params)
             user.save
             render json: user
@@ -60,6 +64,16 @@ class UsersController < ApplicationController
         end
     end
 
+    def avatar
+        user = User.find_by(id: params[:id])
+
+        if user&.avatar&.attached?
+            redirect_to rails_blob_url(user.avatar)
+        else
+            head :not_found
+        end
+    end
+    
     def destroy
         user = User.find_by(id: params[:id])
         if user
@@ -72,6 +86,6 @@ class UsersController < ApplicationController
     
     private
     def user_params
-        params.require(:user).permit(:username, :email, :full_name, :password)
+        params.require(:user).permit(:username, :email, :full_name, :password, :avatar)
     end
 end

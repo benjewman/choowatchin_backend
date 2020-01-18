@@ -45,3 +45,7 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 gem 'jwt'
 
 gem 'active_model_serializers'
+
+gem "aws-sdk-s3", require: false
+
+gem 'paperclip', '~> 5.1.0'
