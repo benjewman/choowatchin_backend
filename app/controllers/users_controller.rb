@@ -29,13 +29,7 @@ class UsersController < ApplicationController
         p '=============='
 
         if user 
-            # Refactor below JSON
-
             render json: { user: user, leaders: sorted_leaders, leader_reviews: ordered_leader_reviews, user_reviews: ordered_user_reviews }
-
-            # below might work instead
-            # serializers might be working now
-
             # render json: user
         end
     end
@@ -50,11 +44,12 @@ class UsersController < ApplicationController
     end
 
     def update
+        params.inspect
         user = User.find_by(id: params[:id])
-        if user && params[:avatar]
-            # user.avatar.attach(params[:user][:avatar])
-            user.update(avatar: params[:avatar])
-            render json: { message: 'avatar included', attached: user.avatar.attached? }
+        if user && params[[:user][:avatar]]
+            user.avatar.attach(params[:user][:avatar])
+            # user.update(avatar: params[:avatar])
+            render json: { message: 'avatar included', user: user }
         elsif user
             user.update(user_params)
             user.save
@@ -62,6 +57,13 @@ class UsersController < ApplicationController
         else
             render json: { error: 'did not update' }
         end
+        # if user
+        #     user.update(user_params)
+        #     user.save
+        #     render json: user
+        # else
+        #     render json: { error: 'did not update' }
+        # end
     end
 
     def avatar
