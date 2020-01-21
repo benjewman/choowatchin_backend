@@ -10,4 +10,5 @@ class User < ApplicationRecord
     has_many :reviews, dependent: :destroy
     has_many :shows, through: :reviews
     accepts_nested_attributes_for :reviews
+
 end

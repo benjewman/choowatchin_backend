@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
         review = Review.find_by(id: params[:id])
         show = review.show
         user = review.user
-        render json: {review: review, show: show, user: user}
+        render json: review
     end
 
     def create

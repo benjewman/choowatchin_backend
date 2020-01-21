@@ -3,7 +3,7 @@ class UserSerializer < ActiveModel::Serializer
   # temporarily deleted avatar attribute because it 
   # causes problems in Friends component
   attributes :id, :username, :full_name, :email, :pic, :avatar
-  has_many :reviews
+  has_many :reviews, include_nested_attributes: :true
   has_many :leaders
   has_many :followers
 
