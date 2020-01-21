@@ -26,7 +26,6 @@ class UsersController < ApplicationController
         leader_reviews = Review.all.where(user_id: leaders)
         ordered_leader_reviews = leader_reviews.order({ created_at: :desc })
         ordered_user_reviews = user.reviews.order({ created_at: :desc })
-        p '=============='
 
         if user 
             # render json: { user: user, leaders: sorted_leaders, leader_reviews: ordered_leader_reviews, user_reviews: ordered_user_reviews }
@@ -48,13 +47,8 @@ class UsersController < ApplicationController
         user = User.find_by(id: params[:id])
         if user && params[:user][:avatar]
             user.avatar.attach(params[:user][:avatar])
-            p '====================================='
-            p user.avatar.attached?
-            p url_for(user.avatar)
-            # byebug
             user.save
-            # user.update(user_params)
-            render json: { message: 'avatar included', user: user.avatar, url: url_for(user.avatar)}
+            render json: user
         elsif user
             user.update(user_params)
             user.save
@@ -88,6 +82,32 @@ class UsersController < ApplicationController
             render json: { message: 'user deleted' }
         else
             render json: { message: 'delete failed' }
+        end
+    end
+
+    def log_in
+        user = User.find_by(username: params['username'])
+        if user && user.authenticate(params['password'])
+            token = JWT.encode({user_id: user.id}, 'chookey', 'HS256')
+            render json: { user: user, token: token }
+        else
+            render json: { error: 'invalid credentials' }, status: 401
+        end
+    end
+
+    def auth
+        token = request.headers['Authorization'].split(' ')[1]
+        user_id = JWT.decode(token, 'chookey', true, { algorithm: 'HS256' })[0]['user_id']
+        user = User.find_by(id: user_id)
+        if user 
+            # user['avatar'] = url_for(user.avatar)
+            leaders = user.leaders.map { |leader| leader.id }
+            leaders_plus = leaders.push(user.id)
+            leader_reviews = Review.all.where(user_id: leaders_plus)
+            ordered_leader_reviews = leader_reviews.order({ created_at: :desc})
+            render json: { user: user, followed_reviews: ordered_leader_reviews, leaders: user.leaders }
+        else
+            render json: { error: 'not signed in' }, status: 401
         end
     end
     

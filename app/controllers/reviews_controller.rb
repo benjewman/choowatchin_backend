@@ -1,4 +1,14 @@
 class ReviewsController < ApplicationController
+    def index
+        user_id = request.headers['UserId'].split(' ')[1]
+        user = User.find_by(id: user_id)
+        leaders = user.leaders.map { |leader| leader.id }
+        leaders.push(user.id)
+        reverse_reviews = Review.all.where(user_id: leaders)
+        reviews = reverse_reviews.reverse()
+        render json: reviews
+    end
+    
     def show
         review = Review.find_by(id: params[:id])
         show = review.show
