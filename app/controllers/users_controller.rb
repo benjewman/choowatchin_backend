@@ -40,7 +40,7 @@ class UsersController < ApplicationController
         sorted_users = backwards_sorted.reverse()
         top_five = sorted_users[0..4]
         follower_count_array = top_five.map { |user| user.followers.size }
-        render json: { top_five: top_five, follower_count_array: follower_count_array }
+        render json: top_five
     end
 
     def update
