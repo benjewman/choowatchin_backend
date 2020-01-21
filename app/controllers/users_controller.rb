@@ -29,8 +29,8 @@ class UsersController < ApplicationController
         p '=============='
 
         if user 
-            render json: { user: user, leaders: sorted_leaders, leader_reviews: ordered_leader_reviews, user_reviews: ordered_user_reviews }
-            # render json: user
+            # render json: { user: user, leaders: sorted_leaders, leader_reviews: ordered_leader_reviews, user_reviews: ordered_user_reviews }
+            render json: user
         end
     end
 
@@ -46,10 +46,15 @@ class UsersController < ApplicationController
     def update
         params.inspect
         user = User.find_by(id: params[:id])
-        if user && params[[:user][:avatar]]
+        if user && params[:user][:avatar]
             user.avatar.attach(params[:user][:avatar])
-            # user.update(avatar: params[:avatar])
-            render json: { message: 'avatar included', user: user }
+            p '====================================='
+            p user.avatar.attached?
+            p url_for(user.avatar)
+            # byebug
+            user.save
+            # user.update(user_params)
+            render json: { message: 'avatar included', user: user.avatar, url: url_for(user.avatar)}
         elsif user
             user.update(user_params)
             user.save
