@@ -23,8 +23,11 @@ class ReviewsController < ApplicationController
         show = Show.find_by(showId: params[:show]['id'])
         if show
             review.show = show
-            review.save
-            render json: {review: review, show: show}
+            if review.save
+                render json: {review: review, show: show}
+            else
+                render json: {error: 'did not save review'}
+            end
         else
             new_show = Show.create(showId: params[:show]['id'], medium: params[:medium], poster: params[:show]['poster_path'])
             if (new_show.medium === 'movies') 
