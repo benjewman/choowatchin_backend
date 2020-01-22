@@ -20,6 +20,8 @@ class UserSerializer < ActiveModel::Serializer
     # url_for(object.avatar) if object.avatar.attached?
     if object.avatar.attached?
       url_for(object.avatar) 
+      # p URI.parse(URI.encode(object.avatar.service_url))
+      
     else
       object.pic
     end
