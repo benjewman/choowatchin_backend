@@ -19,7 +19,7 @@ amazon:
   access_key_id: ENV['ACCESS_KEY_ID']
   secret_access_key: ENV['SECRET_ACCESS_KEY']
   bucket: choowatchin
-  region: us-east-2
+  s3_region: us-east-2
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
