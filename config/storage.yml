@@ -16,10 +16,10 @@ local:
 
 amazon:
   service: S3
-  access_key_id: ""
-  secret_access_key: ""
-  bucket: ""
-  region: ""
+  access_key_id: "AKIA3F6T3BZNFQJ3V4FJ"
+  secret_access_key: "Ov7hgzbNGdmq8ZnpFCf8xk4a5KAOBMUQXE3mdIgc"
+  bucket: "choowatchin"
+  region: "us-east-2"
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:

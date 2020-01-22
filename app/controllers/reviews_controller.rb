@@ -26,7 +26,7 @@ class ReviewsController < ApplicationController
             if review.save
                 render json: {review: review, show: show}
             else
-                render json: {error: 'did not save review'}
+                render json: {error: 'can not review the same show twice'}
             end
         else
             new_show = Show.create(showId: params[:show]['id'], medium: params[:medium], poster: params[:show]['poster_path'])
