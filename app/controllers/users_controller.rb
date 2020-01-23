@@ -20,13 +20,13 @@ class UsersController < ApplicationController
     def show
         user = User.find_by(id: params[:id])
         if user 
-            leaders = user.leaders
-            backwards_sorted = leaders.sort_by { |leader| leader.followers.size}
-            sorted_leaders = backwards_sorted.reverse
+            # leaders = user.leaders
+            # backwards_sorted = leaders.sort_by { |leader| leader.followers.size}
+            # sorted_leaders = backwards_sorted.reverse
             
-            leader_reviews = Review.all.where(user_id: leaders)
-            ordered_leader_reviews = leader_reviews.order({ created_at: :desc })
-            ordered_user_reviews = user.reviews.order({ created_at: :desc })
+            # leader_reviews = Review.all.where(user_id: leaders)
+            # ordered_leader_reviews = leader_reviews.order({ created_at: :desc })
+            # ordered_user_reviews = user.reviews.order({ created_at: :desc })
 
         
             # render json: { user: user, leaders: sorted_leaders, leader_reviews: ordered_leader_reviews, user_reviews: ordered_user_reviews }
