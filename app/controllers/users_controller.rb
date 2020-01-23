@@ -34,11 +34,12 @@ class UsersController < ApplicationController
     end
 
     def topfive
-        users = User.all
-        backwards_sorted = users.sort_by { |user| user.followers.size }
-        sorted_users = backwards_sorted.reverse()
-        top_five = sorted_users[0..4]
-        render json: top_five
+        # users = User.all
+        # backwards_sorted = users.sort_by { |user| user.followers.size }
+        # sorted_users = backwards_sorted.reverse()
+        # top_five = sorted_users[0..4]
+        # render json: top_five
+        render json: { message: 'got to top five' }
     end
 
     def update
