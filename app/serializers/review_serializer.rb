@@ -5,7 +5,7 @@ class ReviewSerializer < ActiveModel::Serializer
 
   def user
      user = object.user.attributes
-     if object.avatar.attached?
+     if object.user.avatar.attached?
       user['avatar'] = object.user.avatar.service_url
       # url_for(object.user.avatar)
      else 
