@@ -5,7 +5,10 @@ class ReviewSerializer < ActiveModel::Serializer
 
   def user
      user = object.user.attributes
-     user['avatar'] = url_for(object.user.avatar)
+     if object.avatar.attached?
+      user['avatar'] = url_for(object.user.avatar)
+     else 
+      user['avatar'] = object.user.pic
      return user
   end 
 
