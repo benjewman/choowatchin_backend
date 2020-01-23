@@ -9,6 +9,7 @@ class ReviewSerializer < ActiveModel::Serializer
       user['avatar'] = url_for(object.user.avatar)
      else 
       user['avatar'] = object.user.pic
+     end
      return user
   end 
 
