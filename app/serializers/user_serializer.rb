@@ -15,11 +15,13 @@ class UserSerializer < ActiveModel::Serializer
   end
   
   def avatar
-    # object.avatar.service_url if object.avatar.attached?
-    # url_for(object.avatar) if object.avatar.attached?
+    
     if object.avatar.attached?
-      # url_for(object.avatar) 
-      object.avatar.service_url
+      url_for(object.avatar) 
+      # change back to the below when push to heroku
+
+      # object.avatar.service_url
+
       # p URI.parse(URI.encode(object.avatar.service_url))
       
     else
@@ -27,4 +29,6 @@ class UserSerializer < ActiveModel::Serializer
     end
 
   end
+
+
 end
