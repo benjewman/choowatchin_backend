@@ -16,6 +16,14 @@ class UsersController < ApplicationController
         end
     end 
 
+    # def show
+    #     user = User.find_by(id: params[:id])
+    #     leaders = user.leaders.map { |leader| leader.id }
+    #     leaders_plus = leaders.push(object.id)
+    #     leader_reviews = Review.all.where(user_id: leaders_plus)
+    #     followed_reviews = leader_reviews.order({ created_at: :desc})
+        # render json: {user: user, followed_reviews: followed_reviews}
+    # end
 
     def show
         user = User.find_by(id: params[:id])

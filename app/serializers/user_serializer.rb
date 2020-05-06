@@ -1,7 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  # temporarily deleted avatar attribute because it 
-  # causes problems in Friends component
+
   attributes :id, :username, :full_name, :email, :pic, :avatar, :followed_reviews
   has_many :reviews, include_nested_attributes: :true
   has_many :leaders
@@ -11,8 +10,8 @@ class UserSerializer < ActiveModel::Serializer
     leaders = object.leaders.map { |leader| leader.id }
     leaders_plus = leaders.push(object.id)
     leader_reviews = Review.all.where(user_id: leaders_plus)
-    ordered_leader_reviews = leader_reviews.order({ created_at: :desc})
-    return ordered_leader_reviews
+    followed_reviews = leader_reviews.order({ created_at: :desc})
+    return followed_reviews
   end
   
   def avatar
