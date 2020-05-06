@@ -3,14 +3,23 @@ class ReviewSerializer < ActiveModel::Serializer
   attributes :id, :stamp, :content, :show_id, :show , :user 
   belongs_to :user, include_nested_attributes: :true
 
+  # temporarily change user method because avatar service url 
+  # doesn't work locally
+  
   def user
      user = object.user.attributes
-     if object.user.avatar.attached?
-      user['avatar'] = object.user.avatar.service_url
-      # url_for(object.user.avatar)
-     else 
-      user['avatar'] = object.user.pic
-     end
+
+     user['avatar'] = object.user.pic
+     
+     
+    #  if object.user.avatar.attached?
+    #   user['avatar'] = object.user.avatar.service_url
+    #   # url_for(object.user.avatar)
+    #  else 
+    #   user['avatar'] = object.user.pic
+    #  end
+
+
      return user
   end 
 
