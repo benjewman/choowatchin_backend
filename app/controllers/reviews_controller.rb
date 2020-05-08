@@ -9,7 +9,8 @@ class ReviewsController < ApplicationController
             reviews = reverse_reviews.reverse()
             render json: reviews
         else
-            reviews = Review.all
+            reverse_reviews = Review.all
+            reviews = reverse_reviews.reverse()
             render json: reviews
         end
     end
