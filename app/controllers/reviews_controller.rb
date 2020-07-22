@@ -22,9 +22,7 @@ class ReviewsController < ApplicationController
         render json: review
     end
 
-    def create
-        # render json: {show: params[:show], id: params[:show]['id']}
-        
+    def create        
         review = Review.new(review_params)
         show = Show.find_by(showId: params[:show]['id'])
         if show

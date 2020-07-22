@@ -17,10 +17,11 @@ class UserSerializer < ActiveModel::Serializer
   def avatar
     
     if object.avatar.attached?
-      url_for(object.avatar) 
-      # change back to the below when push to heroku
+      
+      # url_for(object.avatar) 
+      # above is for local use
 
-      # object.avatar.service_url
+      object.avatar.service_url
 
       # p URI.parse(URI.encode(object.avatar.service_url))
       

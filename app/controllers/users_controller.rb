@@ -16,15 +16,6 @@ class UsersController < ApplicationController
         end
     end 
 
-    # def show
-    #     user = User.find_by(id: params[:id])
-    #     leaders = user.leaders.map { |leader| leader.id }
-    #     leaders_plus = leaders.push(object.id)
-    #     leader_reviews = Review.all.where(user_id: leaders_plus)
-    #     followed_reviews = leader_reviews.order({ created_at: :desc})
-        # render json: {user: user, followed_reviews: followed_reviews}
-    # end
-
     def show
         user = User.find_by(id: params[:id])
         if user 
@@ -66,24 +57,8 @@ class UsersController < ApplicationController
         else
             render json: { error: 'did not update' }
         end
-        # if user
-        #     user.update(user_params)
-        #     user.save
-        #     render json: user
-        # else
-        #     render json: { error: 'did not update' }
-        # end
+       
     end
-
-    # def avatar
-    #     user = User.find_by(id: params[:id])
-
-    #     if user&.avatar&.attached?
-    #         redirect_to rails_blob_url(user.avatar)
-    #     else
-    #         head :not_found
-    #     end
-    # end
     
     def destroy
         user = User.find_by(id: params[:id])
